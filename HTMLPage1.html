@@ -7,71 +7,103 @@
 </head>
 <body>
     <div>
-        <h2>Danh sách</h2>
+        <h2 style="color:deeppink;">Danh sách</h2>
         <ul id="Saches"></ul>
     </div>
     <div>
-        <h2>Tìm kiếm bằng mã sách</h2>
-        <input class="form-control" type="text" id="prodId" size="5" style="width:500px; float:left;" placeholder="Tìm Kiếm" />
-        <input class="btn btn-primary" type="button" value="Search" onclick="find();" style="margin-left: 10px;" />
+        <h2 style="color:deeppink;">Tìm kiếm sách</h2>
+        <input class="form-control" type="text" id="prodId" size="5" style="width:350px; float:left; border-radius:18px;" placeholder="Search" />
+        <input class="btn btn-primary" type="button" value="Search" onclick="find();" style="margin-left: 10px; color: brown;" />
         <p id="Sach" />
     </div>
     <div>
-        <h2>Thêm Sách</h2>
+        <h2 style="color:deeppink;">Chỉnh sửa sách</h2>
         <form>
             <div class="form-group">
                 <label for="exampleInputEmail1">Tên Sách</label>
-                <input type="text" class="form-control" id="" aria-describedby="emailHelp" placeholder="Nhập Tên Sách" style="width: 500px">
+                <input type="text" class="form-control" id="" aria-describedby="emailHelp" placeholder="Tên Sách" style="width: 300px; border-radius:18px;">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Tác Giả</label>
-                <input type="text" class="form-control" id="" placeholder="Tên Tác Giả" style="width: 500px">
+                <input type="text" class="form-control" id="" placeholder="Tên Tác Giả" style="width: 300px; border-radius:18px;">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Content</label>
-                <input type="text" class="form-control" id="" placeholder="Mô tả" style="width: 500px">
+                <input type="text" class="form-control" id="" placeholder="Mô tả" style="width: 300px; border-radius:18px;">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Giá</label>
-                <input type="text" class="form-control" id="" placeholder="Giá Sách" style="width: 500px">
+                <input type="text" class="form-control" id="" placeholder="Giá" style="width: 300px; border-radius:18px;">
             </div>
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Submit</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px; color:brown;">Submit</button>
         </form>
     </div>
-    <script src="Content/jquery-2.0.3.min.js"></script>
-    <script>
-        var uri = 'api/Sach';
-        $(document).ready(function () {
-            $.getJSON(uri)
-                .done(function (data) {
-                    $.each(data, function (key, item) {
-                        $('<li>', { text: formatItem(item) }).appendTo($('#Saches'));
-                    });
+    <div>
+        <h2 style="color:deeppink;">Thêm Sách</h2>
+        <form>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Tên Sách</label>
+                <input type="text" class="form-control" id="" aria-describedby="emailHelp" placeholder="Tên Sách" style="width: 300px">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Tác Giả</label>
+                <input type="text" class="form-control" id="" placeholder="Tên Tác Giả" style="width: 300px">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Content</label>
+                <input type="text" class="form-control" id="" placeholder="Mô tả" style="width: 300px">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Giá</label>
+                <input type="text" class="form-control" id="" placeholder="Giá" style="width: 300px">
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px; color:brown;">Submit</button>
+        </form>
+    </div>
+    <div>
+        <h2 style="color:deeppink;">Xóa sách</h2>
+        <form>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Tên Sách</label>
+                <input type="text" class="form-control" id="" aria-describedby="emailHelp" placeholder="Tên Sách" style="width: 300px; border-radius:18px;">
+                <button type="submit" class="btn btn-primary" style="margin-top: 10px; color:brown;">Submit</button>
+            </div>
+        </form>
+    </div>
+            <script src="Content/jquery-2.0.3.min.js"></script>
+            <script>
+                var uri = 'api/Sach';
+                $(document).ready(function () {
+                    $.getJSON(uri)
+                        .done(function (data) {
+                            $.each(data, function (key, item) {
+                                $('<li>', { text: formatItem(item) }).appendTo($('#Saches'));
+                            });
+                        });
                 });
-        });
-        function formatItem(item) {
-            return item.Title + ': $' + item.Price;
-        }
-        function find() {
-            var Id = $('#prodId').val();
-            $.getJSON(uri + '/' + Id)
-                .done(function (data) {
-                    $('#Sach').text(formatItem(data));
-                })
-                .fail(function (jqXHR, textStatus, err) {
-                    $('#Sach').text('Error: ' + err);
-                });
-        }
-        function insert() {
-            $.ajax({
-                method: "Post",
-                url: "api/Sach",
-                data: { name: "John", location: "Boston" }
-            })
-                .done(function (msg) {
-                    alert("Data Saved: " + msg);
-                });
-        }
-    </script>
+                function formatItem(item) {
+                    return item.Title + ': $' + item.Price;
+                }
+                function find() {
+                    var Id = $('#prodId').val();
+                    $.getJSON(uri + '/' + Id)
+                        .done(function (data) {
+                            $('#Sach').text(formatItem(data));
+                        })
+                        .fail(function (jqXHR, textStatus, err) {
+                            $('#Sach').text('Error: ' + err);
+                        });
+                }
+                function insert() {
+                    $.ajax({
+                        method: "Post",
+                        url: "api/Sach",
+                        data: { name: "John", location: "Boston" }
+                    })
+                        .done(function (msg) {
+                            alert("Data Saved: " + msg);
+                        });
+                }
+            </script>
 </body>
 </html>
